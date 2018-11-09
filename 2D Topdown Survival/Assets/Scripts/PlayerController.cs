@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private int movementSpeed;
     [SerializeField] private bool isRunning;
-
+    
     private int sprintSpeed = 1;
 
     Camera CC;
@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             isRunning = true;
@@ -45,5 +46,13 @@ public class PlayerController : MonoBehaviour {
         var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle-90, Vector3.forward);
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.CompareTag("Pickup"))
+        {
+            Debug.Log("Rammer Sten");
+        }
     }
 }
