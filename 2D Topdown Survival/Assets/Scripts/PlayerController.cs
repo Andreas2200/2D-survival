@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    InventoryManager IM;
+
     [SerializeField] private int movementSpeed;
     [SerializeField] private bool isRunning;
     
@@ -15,6 +17,8 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        IM = FindObjectOfType<InventoryManager>();
+
         isRunning = false;
         CC = Camera.main;
 	}
@@ -50,9 +54,10 @@ public class PlayerController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.CompareTag("Pickup"))
+        if(col.gameObject.tag == "Stone Pickup")
         {
-            Debug.Log("Rammer Sten");
+            Destroy(col.gameObject);
+            IM.stoneCount++;
         }
-    }
+    }   
 }
