@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour {
 
     InventoryManager IM;
 
+    public Text foodCounter;
     public Text stoneCounter;
     public Text treeCounter;
 
@@ -18,7 +19,8 @@ public class UIManager : MonoBehaviour {
 
 	void Update ()
     {
-        stoneCounter.text = "Stones: " + IM.stoneCount;
-        treeCounter.text = "Trees: " + IM.treeCount;
+        foodCounter.text = "" + IM.foodCount;
+        stoneCounter.text =  "" + IM.stoneCount;
+        treeCounter.text = "" + IM.treeCount;
 	}
 }

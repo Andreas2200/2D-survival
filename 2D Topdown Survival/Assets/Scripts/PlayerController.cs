@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour {
     Camera CC;
 
 
-	// Use this for initialization
 	void Start ()
     {
         IM = FindObjectOfType<InventoryManager>();
@@ -23,7 +22,7 @@ public class PlayerController : MonoBehaviour {
         CC = Camera.main;
 	}
 	
-	// Update is called once per frame
+
 	void Update ()
     {
 
@@ -58,6 +57,12 @@ public class PlayerController : MonoBehaviour {
         {
             Destroy(col.gameObject);
             IM.stoneCount++;
+        }
+
+        if(col.gameObject.tag == "Food Pickup")
+        {
+            Destroy(col.gameObject);
+            IM.foodCount++;
         }
     }   
 }

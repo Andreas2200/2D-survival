@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pickup
   - Stone Pickup
+  - Food Pickup
   layers:
   - Default
   - TransparentFX
