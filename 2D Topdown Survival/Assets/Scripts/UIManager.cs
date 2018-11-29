@@ -11,10 +11,13 @@ public class UIManager : MonoBehaviour {
     public Text stoneCounter;
     public Text treeCounter;
 
+    public Slider healthBar;
+
 	void Start ()
     {
         IM = FindObjectOfType<InventoryManager>();
-	}
+        healthBar.value = 1;
+    }
 	
 
 	void Update ()
@@ -22,5 +25,6 @@ public class UIManager : MonoBehaviour {
         foodCounter.text = "" + IM.foodCount;
         stoneCounter.text =  "" + IM.stoneCount;
         treeCounter.text = "" + IM.treeCount;
+
 	}
 }
