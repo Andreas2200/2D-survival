@@ -12,9 +12,12 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private bool healthLost;
     [SerializeField] private bool foodLost;
     [SerializeField] private bool foodRecover;
+    [SerializeField] private bool energyLost;
+
+    //public bool isJumping;
     
     private int sprintSpeed = 1;
-    private float healthLoss = 0.1f;
+    private float healthLoss = 0.05f;
 
 
     Camera CC;
@@ -25,6 +28,8 @@ public class PlayerController : MonoBehaviour {
         IM = FindObjectOfType<InventoryManager>();
         UM = FindObjectOfType<UIManager>();
 
+        //isJumping = false;
+        energyLost = false;
         foodRecover = true;
         foodLost = false;
         healthLost = false;
@@ -35,7 +40,39 @@ public class PlayerController : MonoBehaviour {
 
 	void Update ()
     {
+        //Denne kodeblok styrer vores karakters hoppe funktion
+        /*if(Input.GetKeyDown(KeyCode.Space))
+        {
+            isJumping = true;
+            Debug.Log(isJumping);
+            if(transform.rotation.z > 0.0000001f && transform.rotation.z < 0.7f)
+            {
+                Debug.Log("Hej 1");
+                transform.position = new Vector3(transform.position.x - 0.5f, transform.position.y + 0.5f);
+            }
+            if(transform.rotation.z < -0.0000001f && transform.rotation.z > -0.7f)
+            {
+                Debug.Log("Hej 2");
+                transform.position = new Vector3(transform.position.x + 0.5f, transform.position.y + 0.5f);
+            }
+            if(transform.rotation.z < -0.7f && transform.rotation.z > -0.999999f)
+            {
+                Debug.Log("Hej 3");
+                transform.position = new Vector3(transform.position.x + 0.5f, transform.position.y - 0.5f);
+            }
+            if(transform.rotation.z > 0.7f && transform.rotation.z < 0.999999f)
+            {
+                Debug.Log("Hej 4");
+                transform.position = new Vector3(transform.position.x - 0.5f, transform.position.y - 0.5f);
+            }
 
+        }
+        else
+        {
+            //isJumping = false;
+        }*/
+
+        //Denne kodeblok er til styringen af vores liv
         if (IM.foodCount == 0)
         {
             if((int)Time.time >= 1 && (int)Time.time % 2 == 0 && !healthLost)
@@ -70,25 +107,37 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if(UM.energyBar.value == 0)
         {
+            energyLost = true;
+        }
+        else if(UM.energyBar.value == 10)
+        {
+            energyLost = false;
+        }
+
+        //Denne kodeblok er til at tjekke om man løber eller om man går
+        if (Input.GetKey(KeyCode.LeftShift) && UM.energyBar.value != 0 && !energyLost)
+        {
+            sprintSpeed = 3;
             isRunning = true;
         }
-        else if(Input.GetKeyUp(KeyCode.LeftShift))
+        else
         {
+            sprintSpeed = 1;
             isRunning = false;
         }
 
         if(isRunning)
         {
-            sprintSpeed = 3;
+            UM.energyBar.value -= 0.05f;
         }
         else if(!isRunning)
         {
-            sprintSpeed = 1;
+            UM.energyBar.value += 0.1f;
         }
 
+        //Denne kodeblok er hele bevægelsen for vores karakter
         CC.transform.position = new Vector3(transform.position.x, transform.position.y, CC.transform.position.z);
         transform.Translate(Input.GetAxisRaw("Horizontal") * Time.deltaTime * movementSpeed * sprintSpeed, Input.GetAxisRaw("Vertical") * Time.deltaTime * movementSpeed * sprintSpeed,0f);
         var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);

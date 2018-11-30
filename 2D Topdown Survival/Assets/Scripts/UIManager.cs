@@ -12,11 +12,13 @@ public class UIManager : MonoBehaviour {
     public Text treeCounter;
 
     public Slider healthBar;
+    public Slider energyBar;
 
 	void Start ()
     {
         IM = FindObjectOfType<InventoryManager>();
         healthBar.value = 1;
+        energyBar.value = 10;
     }
 	
 
@@ -26,5 +28,9 @@ public class UIManager : MonoBehaviour {
         stoneCounter.text =  "" + IM.stoneCount;
         treeCounter.text = "" + IM.treeCount;
 
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
 	}
 }

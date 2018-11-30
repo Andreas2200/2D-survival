@@ -14,7 +14,7 @@ public class InventoryManager : MonoBehaviour {
 
 	void Start ()
     {
-        foodCount = 0;
+        foodCount = 1;
         stoneCount = 0;
         treeCount = 0;
 
