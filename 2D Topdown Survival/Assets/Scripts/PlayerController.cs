@@ -137,12 +137,15 @@ public class PlayerController : MonoBehaviour {
             UM.energyBar.value += 0.1f;
         }
 
-        //Denne kodeblok er hele bevægelsen for vores karakter
-        CC.transform.position = new Vector3(transform.position.x, transform.position.y, CC.transform.position.z);
-        transform.Translate(Input.GetAxisRaw("Horizontal") * Time.deltaTime * movementSpeed * sprintSpeed, Input.GetAxisRaw("Vertical") * Time.deltaTime * movementSpeed * sprintSpeed,0f);
-        var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle-90, Vector3.forward);
+        if (!UM.isPaused)
+        {
+            //Denne kodeblok er hele bevægelsen for vores karakter
+            CC.transform.position = new Vector3(transform.position.x, transform.position.y, CC.transform.position.z);
+            transform.Translate(Input.GetAxisRaw("Horizontal") * Time.deltaTime * movementSpeed * sprintSpeed, Input.GetAxisRaw("Vertical") * Time.deltaTime * movementSpeed * sprintSpeed, 0f);
+            var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        }
     }
 
 
